@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <title>meme-store</title>
+    </head>
+    <body>
+        <h2>MEME</h2><br><br>
+        <form action="{{ url_for('index') }}" method="POST">
+            <input type="submit" value="Meme Plz">
+        </form>
+        <form action="{{ url_for('addMeme') }}" method="POST">
+            <input type="submit" value="Add">
+            <input type="file" name="meme" id="fileUpload" required>
+            <input type="text" name="name" required>
+            <input type="hidden" name="source" id="source" value="#" required>
+        </form>
+        <img src="{{ source }}" alt="memez" id="img" width="500" height="333">
+
+    </body>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              
+              reader.onload = function(e) {
+                $('#img').attr('src', e.target.result);
+                $('#source').attr('value', e.target.result);
+              }
+              
+              reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+          }
+          
+          $("#fileUpload").change(function() {
+            readURL(this);
+          });
+    </script>
+</html>
